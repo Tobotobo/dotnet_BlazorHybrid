@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorHybrid.Maui", "Blazor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorHybrid.Wpf", "BlazorHybrid.Wpf\BlazorHybrid.Wpf.csproj", "{8ECF5A99-3036-4BC0-B670-472280192951}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorHybrid.Forms", "BlazorHybrid.Forms\BlazorHybrid.Forms.csproj", "{B72720B1-FE62-41D3-A628-19DA99FA16FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{8ECF5A99-3036-4BC0-B670-472280192951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ECF5A99-3036-4BC0-B670-472280192951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ECF5A99-3036-4BC0-B670-472280192951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B72720B1-FE62-41D3-A628-19DA99FA16FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B72720B1-FE62-41D3-A628-19DA99FA16FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B72720B1-FE62-41D3-A628-19DA99FA16FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B72720B1-FE62-41D3-A628-19DA99FA16FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

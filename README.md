@@ -71,7 +71,81 @@ dotnet watch --project ./BlazorHybrid.Wpf
 
 exe 作成
 ```
-dotnet publish -r win-x64 --no-self-contained
-dotnet publish -r win-x64 --self-contained
+dotnet publish ./BlazorHybrid.Wpf -r win-x64 --no-self-contained
+dotnet publish ./BlazorHybrid.Wpf -r win-x64 --self-contained
 ```
 ※csproj に `<EnableWindowsTargeting>true</EnableWindowsTargeting>` の追加が必要
+
+```
+$ dotnet --version
+8.0.103
+```
+
+ubuntu22.04 + 8.0.103 だとエラーになる？
+```
+$ dotnet publish -r win-x64 --no-self-contained
+The imported project "/usr/lib/dotnet/sdk/8.0.103/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.NET.Sdk.WindowsDesktop.targets" was not found. Confirm that the expression in the Import declaration ";/usr/lib/dotnet/sdk/8.0.103/Sdks/Microsoft.NET.Sdk/targets/../../Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.NET.Sdk.WindowsDesktop.targets" is correct, and that the file exists on disk.  /usr/lib/dotnet/sdk/8.0.103/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.Sdk.targets
+MSBuild version 17.8.5+b5265ef37 for .NET
+  Determining projects to restore...
+  Restored /vagrant/dotnet_BlazorHybrid/BlazorHybrid.RCL/BlazorHybrid.RCL.csproj (in 470 ms).
+  Restored /vagrant/dotnet_BlazorHybrid/BlazorHybrid.Wpf/BlazorHybrid.Wpf.csproj (in 499 ms).
+/usr/lib/dotnet/sdk/8.0.103/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.Sdk.targets(1355,3): error MSB4019: The imported project "/usr/lib/dotnet/sdk/8.0.103/Sdks/Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.NET.Sdk.WindowsDesktop.targets" was not found. Confirm that the expression in the Import declaration ";/usr/lib/dotnet/sdk/8.0.103/Sdks/Microsoft.NET.Sdk/targets/../../Microsoft.NET.Sdk.WindowsDesktop/targets/Microsoft.NET.Sdk.WindowsDesktop.targets" is correct, and that the file exists on disk. [/vagrant/dotnet_BlazorHybrid/BlazorHybrid.Wpf/BlazorHybrid.Wpf.csproj]
+```
+
+8.0.204 だといける
+```
+$ $HOME/.dotnet/dotnet publish -r win-x64 --no-self-contained
+
+Welcome to .NET 8.0!
+---------------------
+SDK Version: 8.0.204
+
+Telemetry
+---------
+The .NET tools collect usage data in order to help us improve your experience. It is collected by Microsoft and shared with the community. You can opt-out of telemetry by setting the DOTNET_CLI_TELEMETRY_OPTOUT environment variable to '1' or 'true' using your favorite shell.
+
+Read more about .NET CLI Tools telemetry: https://aka.ms/dotnet-cli-telemetry
+
+----------------
+Installed an ASP.NET Core HTTPS development certificate.
+To trust the certificate, view the instructions: https://aka.ms/dotnet-https-linux
+
+----------------
+Write your first app: https://aka.ms/dotnet-hello-world
+Find out what's new: https://aka.ms/dotnet-whats-new
+Explore documentation: https://aka.ms/dotnet-docs
+Report issues and find source on GitHub: https://github.com/dotnet/core
+Use 'dotnet --help' to see available commands or visit: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+MSBuild version 17.9.8+b34f75857 for .NET
+  Determining projects to restore...
+  Restored /vagrant/dotnet_BlazorHybrid/BlazorHybrid.RCL/BlazorHybrid.RCL.csproj (in 594 ms).
+  Restored /vagrant/dotnet_BlazorHybrid/BlazorHybrid.Wpf/BlazorHybrid.Wpf.csproj (in 1.58 sec).
+  BlazorHybrid.RCL -> /vagrant/dotnet_BlazorHybrid/BlazorHybrid.RCL/bin/Release/net8.0/BlazorHybrid.RCL.dll
+  BlazorHybrid.Wpf -> /vagrant/dotnet_BlazorHybrid/BlazorHybrid.Wpf/bin/Release/net8.0-windows/win-x64/BlazorHybrid.Wpf.dll
+  BlazorHybrid.Wpf -> /vagrant/dotnet_BlazorHybrid/BlazorHybrid.Wpf/bin/Release/net8.0-windows/win-x64/publish/
+```
+
+## BlazorHybrid.Forms 追加
+
+[Windows フォームの Blazor アプリを構築する](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/hybrid/tutorials/windows-forms?view=aspnetcore-8.0)
+
+
+```
+dotnet new winforms -o BlazorHybrid.Forms
+```
+※csproj に `<EnableWindowsTargeting>true</EnableWindowsTargeting>` の追加が必要
+```
+dotnet sln add ./BlazorHybrid.Forms
+dotnet add ./BlazorHybrid.Forms reference ./BlazorHybrid.RCL
+dotnet add ./BlazorHybrid.Forms package Microsoft.AspNetCore.Components.WebView.WindowsForms --version 8.0.20
+```
+
+exe 作成
+```
+dotnet publish ./BlazorHybrid.Forms -r win-x64 --no-self-contained
+dotnet publish ./BlazorHybrid.Forms -r win-x64 --self-contained
+```
+
+## TODO
+* BlazorHybrid.Forms や BlazorHybrid.Wpf を Windows 環境で dotnet run すると起動はするが index.html の `<link rel="stylesheet" href="BlazorHybrid.XXXX.styles.css" />` が効かずレイアウトが崩れる。
