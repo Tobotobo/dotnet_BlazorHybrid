@@ -41,9 +41,21 @@
 ```
 
 ## BlazorHybrid.Wpf 追加
-とりあえず動いたけど、まだ見た目が崩れていたり中でエラーが起きてるっぽい。
 
 [Windows Presentation Foundation (WPF) の Blazor アプリを構築する](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/hybrid/tutorials/wpf?view=aspnetcore-8.0)
+
+css が読み込めずレイアウトが崩れていた問題は以下の修正で解消  
+wwwroot/index.html  
+```html
+<head>
+～～～～～～～～～～～～～～～
+    <!-- <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="_content/BlazorHybrid.RCL/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+～～～～～～～～～～～～～～～～
+</head>
+```
 
 ```
 dotnet new wpf -o ./BlazorHybrid.Wpf
@@ -56,3 +68,10 @@ dotnet add ./BlazorHybrid.Wpf package Microsoft.AspNetCore.Components.WebView.Wp
 dotnet run --project ./BlazorHybrid.Wpf
 dotnet watch --project ./BlazorHybrid.Wpf
 ```
+
+exe 作成
+```
+dotnet publish -r win-x64 --no-self-contained
+dotnet publish -r win-x64 --self-contained
+```
+※csproj に `<EnableWindowsTargeting>true</EnableWindowsTargeting>` の追加が必要
